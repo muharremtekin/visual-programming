@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "vize_final_not_hesaplama/1.0.0": {
+        "runtime": {
+          "vize_final_not_hesaplama.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "vize_final_not_hesaplama/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
