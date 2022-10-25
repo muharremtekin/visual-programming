@@ -32,7 +32,9 @@ namespace KutuphaneProgrami
             // listboxtan item seçmediğimizde "-1" döndüğü için kontrol ediyoruz
             if (listBox1.SelectedIndex != -1)
             {
-                EditBookForm _editBookForm = new EditBookForm(addedBooks[listBox1.SelectedIndex], listBox1.SelectedIndex, this);
+                BookModel bookModel = addedBooks[listBox1.SelectedIndex];
+                int index = listBox1.SelectedIndex;
+                EditBookForm _editBookForm = new EditBookForm(bookModel, index, this);
                 _editBookForm.Show();
                 this.Hide();
             }
@@ -54,7 +56,7 @@ namespace KutuphaneProgrami
 
         public void addBook(BookModel _book)
         {
-            listBox1.Items.Add(_book.bookAuthor + " " + _book.bookName);
+            listBox1.Items.Add($"Yazar: {_book.bookAuthor} - Kitap adı: {_book.bookName}");
             addedBooks.Add(_book);
         }
         public void updateListboxItem(BookModel _book)
@@ -62,7 +64,6 @@ namespace KutuphaneProgrami
             int index = listBox1.SelectedIndex;
             listBox1.Items[index] = $"Yazar: {_book.bookAuthor} - Kitap adı: {_book.bookName}";
             addedBooks[index] = _book;
-            label1.Text = _book.bookName;
         }
 
         // buton görünürlüğü
