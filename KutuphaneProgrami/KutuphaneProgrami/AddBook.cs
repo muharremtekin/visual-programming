@@ -24,7 +24,7 @@ namespace KutuphaneProgrami
             string bookAuthor = textBox1.Text;
             string bookName = textBox2.Text;
 
-            Book book = new Book(bookAuthor, bookName);
+            BookModel book = new BookModel(bookAuthor, bookName);
             _mainForm.addBook(book);
 
             _mainForm.Show();

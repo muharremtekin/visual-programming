@@ -12,7 +12,9 @@ namespace KutuphaneProgrami
 {
     public partial class MainForm : Form
     {
-        public List<Book> addedBooks = new List<Book>();
+        // kitapların obje olarak tutulduğu list
+        public List<BookModel> addedBooks = new List<BookModel>();
+
         public MainForm()
         {
             InitializeComponent();
@@ -24,22 +26,10 @@ namespace KutuphaneProgrami
             addBook.Show();
             this.Hide();
         }
-        public void addBook(Book _book)
-        {
-            listBox1.Items.Add(_book.bookAuthor + " " + _book.bookName);
-            addedBooks.Add(_book);
-        }
-        public void updateListboxItem(Book _book)
-        {
-            int index = listBox1.SelectedIndex;
-            listBox1.Items[index] = $"Yazar: {_book.bookAuthor} - Kitap adı: {_book.bookName}";
-            addedBooks[index] = _book;
-            label1.Text = _book.bookName;
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // düzenleme
+            // listboxtan item seçmediğimizde "-1" döndüğü için kontrol ediyoruz
             if (listBox1.SelectedIndex != -1)
             {
                 EditBookForm _editBookForm = new EditBookForm(addedBooks[listBox1.SelectedIndex], listBox1.SelectedIndex, this);
@@ -52,38 +42,45 @@ namespace KutuphaneProgrami
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // dialog resul ile messageboxtan gelen dialogu yakalayıp evet e basıldıysa silme işlemini yapıyoruz. 
             DialogResult dialog = MessageBox.Show("Silmek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if ( dialog == DialogResult.Yes)
             {
-                int index = listBox1.SelectedIndex;
-                listBox1.Items.RemoveAt(index);
+                int index = listBox1.SelectedIndex; // seçili itemin indexini alıp index değişkenine atıyoruz. dümdüz yazsam da çalışırdı.
+                listBox1.Items.RemoveAt(index); 
                 addedBooks.RemoveAt(index);
             }
         }
 
+        public void addBook(BookModel _book)
+        {
+            listBox1.Items.Add(_book.bookAuthor + " " + _book.bookName);
+            addedBooks.Add(_book);
+        }
+        public void updateListboxItem(BookModel _book)
+        {
+            int index = listBox1.SelectedIndex;
+            listBox1.Items[index] = $"Yazar: {_book.bookAuthor} - Kitap adı: {_book.bookName}";
+            addedBooks[index] = _book;
+            label1.Text = _book.bookName;
+        }
+
+        // buton görünürlüğü
         private void listBox1_Click(object sender, EventArgs e)
         {
-            button1.Visible = true;
-            button2.Visible = true;
+            changeVisile(true);
         }
 
         private void MainForm_Click(object sender, EventArgs e)
         {
-            button1.Visible = false;
-            button2.Visible = false;
+            changeVisile(false);
         }
-    }
 
-
-    public class Book
-    {
-        public string bookAuthor;
-        public string bookName;
-
-        public Book(string bookAuthor, string bookName)
+        void changeVisile(bool vb)
         {
-            this.bookAuthor = bookAuthor;
-            this.bookName = bookName;
+            button1.Visible = vb;
+            button2.Visible = vb;
         }
     }
+
 }
