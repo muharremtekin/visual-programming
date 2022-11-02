@@ -7,6 +7,9 @@
     <Compile Update="AuthorManager.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="EditAuthorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="EditBookForm.cs">
       <SubType>Form</SubType>
     </Compile>

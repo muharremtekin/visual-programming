@@ -13,12 +13,20 @@ namespace KutuphaneProgrami
     public partial class EditBookForm : Form
     {
         MainForm _mainForm;
-        int currentIndex;
-        public EditBookForm(BookModel bookModel, int index, MainForm mainForm)
+        int _authorIndex;
+        int _bookIndex;
+        public EditBookForm(MainForm mainForm, int authorIndex, int bookIndex)
         {
            // kullanımlar yanlış ama daha detaylı ve temiz yapacak vaktim yok.
             InitializeComponent();
+            this._authorIndex = authorIndex;
+            this._bookIndex = bookIndex;
             
+        }
+        void _initValues()
+        {
+            textBox1.Text = _mainForm.authors[_authorIndex]._books[_bookIndex].bookName;
+            textBox2.Text = _mainForm.authors[_authorIndex]._books[_bookIndex].serialNumber;
         }
 
         private void EditBookForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -28,7 +36,14 @@ namespace KutuphaneProgrami
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
+            DialogResult dialog = MessageBox.Show("Yazarı güncellemek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                _mainForm.authors[_authorIndex]._books[_bookIndex].bookName = textBox1.Text;
+
+                this.Close();
+                _mainForm.Show();
+            }
         }
     }
 }

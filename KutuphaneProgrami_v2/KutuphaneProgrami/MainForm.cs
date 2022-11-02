@@ -32,11 +32,10 @@ namespace KutuphaneProgrami
             // listboxtan item seçmediğimizde "-1" döndüğü için kontrol ediyoruz
             if (listBox1.SelectedIndex != -1)
             {
-                listBox2.Items.Clear();
-                foreach (var item in authors[listBox1.SelectedIndex]._books)
-                {
-                    listBox2.Items.Add(item.serialNumber+ " "+ item.bookName);
-                }
+                int autIndex = listBox1.SelectedIndex;
+                int bookIndex = listBox2.SelectedIndex;
+                EditAuthorForm editAuthorForm = new EditAuthorForm(this, autIndex);
+                editAuthorForm.Show();
                 this.Hide();
             }
             else
@@ -53,11 +52,21 @@ namespace KutuphaneProgrami
             }
         }
 
+        public void updateAuthorListbox(int i)
+        {
+            listBox1.Items[i] = $"Ad: {authors[i]._firstName} Soyad: {authors[i]._lastName}";
+        }
+        public void updateBookListbox(string bookName)
+        {
+            int i = listBox2.SelectedIndex;
+            listBox2.Items[i] = $"{bookName}";
+        }
+
         public void addBookListbox(int index)
         {
             foreach (var item in authors[index]._books)
             {
-                listBox1.Items.Add($"{item.bookName} ({authors[index]._firstName} {authors[index]._lastName})");
+                listBox1.Items.Add($"Ad: {authors[index]._firstName} Soyad: {authors[index]._lastName}");
             }
         }
 
@@ -72,9 +81,20 @@ namespace KutuphaneProgrami
             int select = listBox1.SelectedIndex;
             if (select != -1)
             {
+                listBox2.Items.Clear();
+                foreach (var item in authors[listBox1.SelectedIndex]._books)
+                {
+                    listBox2.Items.Add( $"SN: {item.serialNumber}  Book name: { item.bookName}");
+                }
+            }
+        }
+        private void listBox2_Click(object sender, EventArgs e)
+        {
+            int select = listBox2.SelectedIndex;
+            if (select != -1)
+            {
                 changeVisile(true);
             }
-            
         }
 
         private void MainForm_Click(object sender, EventArgs e)
@@ -99,6 +119,8 @@ namespace KutuphaneProgrami
             authorManager.Show();
             this.Hide();
         }
+
+
     }
 
 }

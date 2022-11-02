@@ -20,3 +20,4 @@ C:\Users\Muharrem\source\repos\KutuphaneProgrami\KutuphaneProgrami\obj\Debug\net
 C:\Users\Muharrem\source\repos\KutuphaneProgrami\KutuphaneProgrami\obj\Debug\net5.0-windows\KutuphaneProgrami.AddBook.resources
 C:\Users\Muharrem\source\repos\KutuphaneProgrami\KutuphaneProgrami\obj\Debug\net5.0-windows\KutuphaneProgrami.EditBookForm.resources
 C:\Users\Muharrem\source\repos\KutuphaneProgrami\KutuphaneProgrami\obj\Debug\net5.0-windows\KutuphaneProgrami.AuthorManager.resources
+C:\Users\Muharrem\source\repos\KutuphaneProgrami\KutuphaneProgrami\obj\Debug\net5.0-windows\KutuphaneProgrami.EditAuthorForm.resources
