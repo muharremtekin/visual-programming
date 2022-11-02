@@ -36,10 +36,10 @@ namespace KutuphaneProgrami
             {
                 BookModel book = new BookModel(serialNumber, bookName);
                 mainForm.authors[comboBox1.SelectedIndex]._books.Add(book);
-                mainForm.addBookListbox(comboBox1.SelectedIndex);
                 mainForm.Show();
                 this.Close();
             }
+            else MessageBox.Show("Lütfen İlgili Alanları Doldurunuz");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -50,6 +50,11 @@ namespace KutuphaneProgrami
         private void AddBookForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainForm.Show();
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

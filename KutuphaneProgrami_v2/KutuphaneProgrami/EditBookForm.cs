@@ -19,9 +19,10 @@ namespace KutuphaneProgrami
         {
            // kullanımlar yanlış ama daha detaylı ve temiz yapacak vaktim yok.
             InitializeComponent();
+            this._mainForm = mainForm;
             this._authorIndex = authorIndex;
             this._bookIndex = bookIndex;
-            
+            _initValues();
         }
         void _initValues()
         {
@@ -36,11 +37,11 @@ namespace KutuphaneProgrami
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Yazarı güncellemek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialog = MessageBox.Show("Kitabı güncellemek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialog == DialogResult.Yes)
             {
                 _mainForm.authors[_authorIndex]._books[_bookIndex].bookName = textBox1.Text;
-
+                _mainForm.listing();
                 this.Close();
                 _mainForm.Show();
             }

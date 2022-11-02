@@ -48,7 +48,13 @@ namespace KutuphaneProgrami
             DialogResult dialog = MessageBox.Show("Silmek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if ( dialog == DialogResult.Yes)
             {
-                
+                int index = listBox1.SelectedIndex;
+                listBox1.Items.RemoveAt(index);
+                authors.RemoveAt(index);
+                changeVisile(false, button1, button2);
+                listBox2.Items.Clear();
+                listing();
+                changeVisile(false, button3, button4);
             }
         }
 
@@ -56,19 +62,7 @@ namespace KutuphaneProgrami
         {
             listBox1.Items[i] = $"Ad: {authors[i]._firstName} Soyad: {authors[i]._lastName}";
         }
-        public void updateBookListbox(string bookName)
-        {
-            int i = listBox2.SelectedIndex;
-            listBox2.Items[i] = $"{bookName}";
-        }
-
-        public void addBookListbox(int index)
-        {
-            foreach (var item in authors[index]._books)
-            {
-                listBox1.Items.Add($"Ad: {authors[index]._firstName} Soyad: {authors[index]._lastName}");
-            }
-        }
+  
 
         public void addAuthorListbox(AuthorModel author)
         {
@@ -78,34 +72,43 @@ namespace KutuphaneProgrami
         // buton görünürlüğü
         private void listBox1_Click(object sender, EventArgs e)
         {
+            listing();
+        }
+
+        public void listing()
+        {
             int select = listBox1.SelectedIndex;
             if (select != -1)
             {
+                changeVisile(true, button1, button2);
                 listBox2.Items.Clear();
-                foreach (var item in authors[listBox1.SelectedIndex]._books)
+                foreach (var item in authors[select]._books)
                 {
-                    listBox2.Items.Add( $"SN: {item.serialNumber}  Book name: { item.bookName}");
+                    listBox2.Items.Add($"SN: {item.serialNumber}  Book name: { item.bookName}");
                 }
             }
         }
+
         private void listBox2_Click(object sender, EventArgs e)
         {
             int select = listBox2.SelectedIndex;
             if (select != -1)
             {
-                changeVisile(true);
+                changeVisile(true, button3, button4);
             }
         }
 
         private void MainForm_Click(object sender, EventArgs e)
         {
-            changeVisile(false);
+            listBox2.Items.Clear();
+            changeVisile(false, button1, button2);
+            changeVisile(false, button3, button4);
         }
 
-        void changeVisile(bool vb)
+        void changeVisile(bool visible, Button btn1, Button btn2)
         {
-            button1.Visible = vb;
-            button2.Visible = vb;
+            btn1.Visible = visible;
+            btn2.Visible = visible;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -120,7 +123,28 @@ namespace KutuphaneProgrami
             this.Hide();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int autIndex = listBox1.SelectedIndex;
+            int bookIndex = listBox2.SelectedIndex;
+            EditBookForm editBookForm = new EditBookForm(this,autIndex,bookIndex);
+            editBookForm.Show();
+            this.Hide();
+        }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("Silmek istediğinize emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                int index = listBox2.SelectedIndex;
+                int index2 = listBox1.SelectedIndex;
+                listBox2.Items.RemoveAt(index);
+                authors[index2]._books.RemoveAt(index);
+                listing();
+                changeVisile(false, button3, button4);
+            }
+        }
     }
 
 }

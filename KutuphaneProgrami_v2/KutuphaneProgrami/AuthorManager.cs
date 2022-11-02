@@ -24,15 +24,25 @@ namespace KutuphaneProgrami
             string UID = textBox1.Text;
             string firstName = textBox2.Text;
             string lastName = textBox3.Text;
-            AuthorModel author = new AuthorModel(UID, firstName, lastName);
-            mainForm.authors.Add(author);
-            mainForm.Show();
-            this.Close();
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "")
+            {
+                AuthorModel author = new AuthorModel(UID, firstName, lastName);
+                mainForm.authors.Add(author);
+                mainForm.addAuthorListbox(author);
+                mainForm.Show();
+                this.Close();
+            }
+            else MessageBox.Show("Boş Alan Bırakılamaz");
         }
 
         private void AuthorManager_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainForm.Show();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }
